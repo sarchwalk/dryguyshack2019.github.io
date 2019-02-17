@@ -123,6 +123,24 @@ public class RoombaOI
 		oCL += Integer.toString(songNum);
 	}
 	
+	private void changeOutputBits()
+	{
+		int outputBits = 0;
+		
+		int bit0 = getUserIntInput(0, 1, "Please enter in the voltage level for digital-out-0");
+		oCLC += "digital-out-0 will be " + Integer.toString(bit0) + ". ";
+		outputBits += bit0;
+		
+		int bit1 = getUserIntInput(0, 1, "Please enter in the voltage level for digital-out-1");
+		oCLC += "digital-out-1 will be " + Integer.toString(bit1) + ". ";
+		outputBits += bit1 * 2;
+		
+		int bit2 = getUserIntInput(0, 1, "Please enter in the voltage level for digital-out-2");
+		oCLC += "digital-out-2 will be " + Integer.toString(bit2) + ".";
+		outputBits += bit2 * 4;
+
+		oCL += Integer.toString(outputBits);
+	}
 	
 	public void run()
 	{
@@ -164,7 +182,7 @@ public class RoombaOI
 	public void createOpCode()
 	{
 		displayOpCodeCreationMenu();
-		int userChoice = getUserIntInput(1, 6, "Please enter in your choice: ");
+		int userChoice = getUserIntInput(1, 7, "Please enter in your choice: ");
 		actOnOptionOpCodeMenu(userChoice);
 	}
 	
@@ -176,6 +194,8 @@ public class RoombaOI
 		System.out.println("4. 156 - Add Wait Distance command.");
 		System.out.println("5. 140 - Create song.");
 		System.out.println("6. 141 - Play song.");
+		System.out.println("7. 147 - Change Output Bits.");
+
 	}
 	
 	public void actOnOptionOpCodeMenu(int userChoice)
@@ -212,6 +232,11 @@ public class RoombaOI
 			case 6: oCL = "141 ";
 					oCLC = "Plays song number ";
 					playSong();
+					opCodeList.add(new OpCodeLine(oCL, oCLC));
+					break;
+			case 7: oCL = "147 ";
+					oCLC = "Changes output voltages for the 3 digital output pins (0000_0000 to 0000_0111): ";
+					changeOutputBits();
 					opCodeList.add(new OpCodeLine(oCL, oCLC));
 					break;
 			default: break;

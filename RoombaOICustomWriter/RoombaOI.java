@@ -100,6 +100,30 @@ public class RoombaOI
 		editOpCode16bits(waitDist);
 	}
 	
+	private void getSong()
+	{
+		int songNum = getUserIntInput(0, 4, "Please enter in the song number (0 to 4)");
+		int songLength = getUserIntInput(1, 16, "Please enter in the song length/ number of notes in the song (1 to 16)");
+		
+		oCLC += Integer.toString(songNum) + ".";
+		oCL += Integer.toString(songNum) + " ";
+		oCL += Integer.toString(songLength);
+		
+		for(int i = 1; i <= songLength; i++)
+		{
+			oCL += " " + Integer.toString(getUserIntInput(0, 127, "Note " + i + ": Please enter in the note (0 to 30 is a rest, 31 is the lowest in pitch, 127 is the highest.)"));
+			oCL += " " + Integer.toString(getUserIntInput(0, 255, "Note " + i + ": Please enter in the note duration ( (0 to 255) * (1/64) seconds)"));
+		}
+	}	
+	
+	private void playSong()
+	{
+		int songNum = getUserIntInput(0, 4, "Please enter in the song number (0 to 4)");
+		oCLC += Integer.toString(songNum) + ".";
+		oCL += Integer.toString(songNum);
+	}
+	
+	
 	public void run()
 	{
 		while(true)
@@ -140,7 +164,7 @@ public class RoombaOI
 	public void createOpCode()
 	{
 		displayOpCodeCreationMenu();
-		int userChoice = getUserIntInput(1, 4, "Please enter in your choice: ");
+		int userChoice = getUserIntInput(1, 6, "Please enter in your choice: ");
 		actOnOptionOpCodeMenu(userChoice);
 	}
 	
@@ -150,6 +174,8 @@ public class RoombaOI
 		System.out.println("2. 128, 132 - Add default start and full mode opCodes.");
 		System.out.println("3. 137 - Add Drive command."); 
 		System.out.println("4. 156 - Add Wait Distance command.");
+		System.out.println("5. 140 - Create song.");
+		System.out.println("6. 141 - Play song.");
 	}
 	
 	public void actOnOptionOpCodeMenu(int userChoice)
@@ -178,7 +204,16 @@ public class RoombaOI
 					getWaitDistance();
 					opCodeList.add(new OpCodeLine(oCL, oCLC));
 					break;
-					
+			case 5: oCL = "140 ";
+					oCLC = "Writes a song to Song Number ";
+					getSong();
+					opCodeList.add(new OpCodeLine(oCL, oCLC));
+					break;
+			case 6: oCL = "141 ";
+					oCLC = "Plays song number ";
+					playSong();
+					opCodeList.add(new OpCodeLine(oCL, oCLC));
+					break;
 			default: break;
 		}
 	}

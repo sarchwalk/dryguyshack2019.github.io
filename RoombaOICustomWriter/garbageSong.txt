@@ -1,0 +1,5 @@
+128;Starts the OI. Must be sent before any other commands to the OI.
+132;Puts the OI into Full mode.
+140 1 16 72 64 79 64 77 16 76 16 74 16 84 64 79 32 77 16 76 16 74 16 84 64 79 32 77 16 76 16 77 16 74 80;Writes a song to Song Number 0.
+140 2 3 31 32 127 32 0 64;Writes a song to Song Number 2.
+141 1;Plays song number 1.

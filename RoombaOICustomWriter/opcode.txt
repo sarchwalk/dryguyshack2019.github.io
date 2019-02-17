@@ -1,0 +1,10 @@
+128;Starts the OI. Must be sent before any other commands to the OI.
+132;Puts the OI into Full mode.
+137 0 100 127 255;Makes the roomba move with a velocity of 100 mm/s, and a turn radius of 32767 mm/s counter-clockwise.
+156 3 227;Makes the roomba move by 995 mm.
+137 0 0 0 160;Makes the roomba move with a velocity of 0 mm/s, and a turn radius of 160 mm/s counter-clockwise.
+156 1 215;Makes the roomba move by 471 mm.
+137 0 100 127 255;Drives the roomba i dunno
+156 3 227;wait some more i suppose
+137 0 100 255 96;I think this will turn it around in the opposite direction to go back to where it came from.
+156 1 215;Lets the roomba turn, I think.
